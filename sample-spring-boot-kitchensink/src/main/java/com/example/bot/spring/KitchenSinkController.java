@@ -292,18 +292,18 @@ public class KitchenSinkController {
                 String imageUrl = createUri("/static/buttons/1040.jpg");
                 ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
                         imageUrl,
-                        "Sosial Media",
-                        "Ini sosial media kim go eun loh",
+                        "My button sample",
+                        "Hello, my button",
                         Arrays.asList(
-                                new URIAction("Instagram",
-                                              "https://www.instagram.com/ggonekim/?hl=en"),
-                                new PostbackAction("Sosial Media",
-                                                   "sosial media"),
+                                new URIAction("Go to line.me",
+                                              "https://line.me"),
+                                new PostbackAction("Say hello1",
+                                                   "hello こんにちは"),
                                 new PostbackAction("言 hello2",
                                                    "hello こんにちは",
                                                    "hello こんにちは"),
-                                new MessageAction("Katakan aku cinta kim go eun",
-                                                  "Aku Cinta Kim Go Eun")
+                                new MessageAction("Say message",
+                                                  "Rice=米")
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
