@@ -89,7 +89,7 @@ public class KitchenSinkController {
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-        TextMessageContent message = event.getMessage();
+        TextMessageContent message = new TextMessageContent("Maaf Kata yang anda masukkan tidak saya mengerti :'(");
         handleTextContent(event.getReplyToken(), event, message);
     }
 
@@ -288,22 +288,22 @@ public class KitchenSinkController {
                 this.reply(replyToken, templateMessage);
                 break;
             }
-            case "buttons": {
+            case "sosial media": {
                 String imageUrl = createUri("/static/buttons/1040.jpg");
                 ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
                         imageUrl,
-                        "My button sample",
-                        "Hello, my button",
+                        "Sosial Media",
+                        "Ini sosial media kim go eun loh",
                         Arrays.asList(
-                                new URIAction("Go to line.me",
-                                              "https://line.me"),
-                                new PostbackAction("Say hello1",
-                                                   "hello こんにちは"),
+                                new URIAction("Instagram",
+                                              "https://www.instagram.com/ggonekim/?hl=en"),
+                                new PostbackAction("Sosial Media",
+                                                   "sosial media"),
                                 new PostbackAction("言 hello2",
                                                    "hello こんにちは",
                                                    "hello こんにちは"),
-                                new MessageAction("Say message",
-                                                  "Rice=米")
+                                new MessageAction("Katakan aku cinta kim go eun",
+                                                  "Aku Cinta Kim Go Eun")
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
