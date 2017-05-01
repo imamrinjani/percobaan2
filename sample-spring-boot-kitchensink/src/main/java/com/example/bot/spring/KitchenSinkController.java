@@ -89,7 +89,7 @@ public class KitchenSinkController {
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-        TextMessageContent message = new TextMessageContent("Maaf Kata yang anda masukkan tidak saya mengerti :");
+        TextMessage message = new TextMessage("Maaf Kata yang anda masukkan tidak saya mengerti :");
         handleTextContent(event.getReplyToken(), event, message);
     }
 
