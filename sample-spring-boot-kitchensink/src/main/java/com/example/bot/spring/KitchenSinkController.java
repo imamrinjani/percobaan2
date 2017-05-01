@@ -89,8 +89,8 @@ public class KitchenSinkController {
 
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-        TextMessage message = new TextMessage("Maaf Kata yang anda masukkan tidak saya mengerti :");
-        handleTextContent(event.getReplyToken(), event, message);
+        TextMessageContent message = event.getMessage();
+        handleTextContent(event.getReplyToken(), event, message)
     }
 
     @EventMapping
@@ -368,7 +368,7 @@ public class KitchenSinkController {
                 log.info("Returns echo message {}: {}", replyToken, text);
                 this.replyText(
                         replyToken,
-                        text
+                        "Maaf kata yang anda masukkan tidak ada dalam kamu saya"
                 );
                 break;
         }
