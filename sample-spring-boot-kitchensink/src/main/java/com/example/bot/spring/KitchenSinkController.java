@@ -309,6 +309,20 @@ public class KitchenSinkController {
                 this.reply(replyToken, templateMessage);
                 break;
             }
+            case "facebook": {
+                String imageUrl = createUri("/static/buttons/facebook.jpg");
+                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
+                        imageUrl,
+                        "Kim Go Eun",
+                        "Facebook",
+                        Arrays.asList(
+                                new URIAction("Facebook",
+                                              "https://www.facebook.com/KGEVN/?fref=ts"),
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
             case "carousel": {
                 String imageUrl = createUri("/static/buttons/1040.jpg");
                 CarouselTemplate carouselTemplate = new CarouselTemplate(
@@ -339,7 +353,7 @@ public class KitchenSinkController {
             case "hey":
                 this.replyText(
                         replyToken,
-                        "Maaf kata yang anda masukkan tidak ada dalam kamus saya"
+                        "hai juga sesama penggemar Kim Go Eun, kalo lo butuh bantuan, tinggal klik bantuan yah (moon wink)"
                 );
                 break;
             default:
