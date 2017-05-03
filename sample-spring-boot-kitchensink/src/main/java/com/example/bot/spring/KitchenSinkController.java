@@ -240,75 +240,6 @@ public class KitchenSinkController {
 
         log.info("Got text message from {}: {}", replyToken, text);
         switch (text) {
-            case "profile": {
-                String userId = event.getSource().getUserId();
-                if (userId != null) {
-                    lineMessagingClient
-                            .getProfile(userId)
-                            .whenComplete((profile, throwable) -> {
-                                if (throwable != null) {
-                                    this.replyText(replyToken, throwable.getMessage());
-                                    return;
-                                }
-
-                                this.reply(
-                                        replyToken,
-                                        Arrays.asList(new TextMessage(
-                                                              "Display name: " + profile.getDisplayName()),
-                                                      new TextMessage("Status message: "
-                                                                      + profile.getStatusMessage()))
-                                );
-
-                            });
-                } else {
-                    this.replyText(replyToken, "Bot can't use profile API without user ID");
-                }
-                break;
-            }
-            case "bye": {
-                Source source = event.getSource();
-                if (source instanceof GroupSource) {
-                    this.replyText(replyToken, "Leaving group");
-                    lineMessagingClient.leaveGroup(((GroupSource) source).getGroupId()).get();
-                } else if (source instanceof RoomSource) {
-                    this.replyText(replyToken, "Leaving room");
-                    lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
-                } else {
-                    this.replyText(replyToken, "Bot can't leave from 1:1 chat");
-                }
-                break;
-            }
-            case "confirm": {
-                ConfirmTemplate confirmTemplate = new ConfirmTemplate(
-                        "Do it?",
-                        new MessageAction("Yes", "Yes!"),
-                        new MessageAction("No", "No!")
-                );
-                TemplateMessage templateMessage = new TemplateMessage("Confirm alt text", confirmTemplate);
-                this.reply(replyToken, templateMessage);
-                break;
-            }
-            case "sosial": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
-                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
-                        imageUrl,
-                        "Kim Go Eun",
-                        "sosial media",
-                        Arrays.asList(
-                                new URIAction("Instagram",
-                                              "https://www.instagram.com/ggonekim/?hl=en"),
-                                new PostbackAction("Sosial Media",
-                                                   "sosial"),
-                                new PostbackAction("言 hello2",
-                                                   "hello こんにちは",
-                                                   "hello こんにちは"),
-                                new MessageAction("Say Love",
-                                                  "I Love Kim Go Eun")
-                        ));
-                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
-                this.reply(replyToken, templateMessage);
-                break;
-            }
             case "facebook": {
                 String imageUrl = createUri("/static/buttons/facebook.jpg");
                 ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
@@ -319,29 +250,88 @@ public class KitchenSinkController {
                                 new URIAction("Facebook",
                                               "https://www.facebook.com/KGEVN/?fref=ts")
                         ));
-                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+                TemplateMessage templateMessage = new TemplateMessage("Facebook Kim Go Eun", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
             }
-            case "carousel": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
+            case "instagram": {
+                String imageUrl = createUri("/static/buttons/instagram.png");
+                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
+                        imageUrl,
+                        "Kim Go Eun",
+                        "Instagram",
+                        Arrays.asList(
+                                new URIAction("Instagram",
+                                              "https://www.instagram.com/ggonekim/?hl=en")
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Instagram Kim Go Eun", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
+            case "sosial": {
+                String imageUrl = createUri("/static/buttons/socialmedia.jpg");
                 CarouselTemplate carouselTemplate = new CarouselTemplate(
                         Arrays.asList(
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new URIAction("Go to line.me",
-                                                      "https://line.me"),
-                                        new PostbackAction("Say hello1",
-                                                           "hello こんにちは")
+                                        new URIAction("Facebook",
+                                                      "https://www.facebook.com/KGEVN/?fref=ts")
                                 )),
                                 new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new PostbackAction("言 hello2",
-                                                           "hello こんにちは",
-                                                           "hello こんにちは"),
-                                        new MessageAction("Say message",
-                                                          "Rice=米")
+                                        new URIAction("Instagram",
+                                                      "https://www.instagram.com/ggonekim/?hl=en")
                                 ))
                         ));
-                TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
+                TemplateMessage templateMessage = new TemplateMessage("Social Media Kim Go Eun", carouselTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
+            case "goblin": {
+                String imageUrl = createUri("/static/buttons/goblin.jpg");
+                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
+                        imageUrl,
+                        "Kim Go Eun",
+                        "dalam film GOBLIN",
+                        Arrays.asList(
+                                new URIAction("wikipedia",
+                                              "https://en.wikipedia.org/wiki/Guardian:_The_Lonely_and_Great_God"),
+                                new URIAction("IMDb",
+                                              "http://www.imdb.com/title/tt5994364/")
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Kim Go Eun dalam GOBLIN", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
+            case "cheese": {
+                String imageUrl = createUri("/static/buttons/cheese.jpg");
+                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
+                        imageUrl,
+                        "Kim Go Eun",
+                        "dalam film Cheese in the Trap",
+                        Arrays.asList(
+                                new URIAction("wikipedia",
+                                              "https://en.wikipedia.org/wiki/Cheese_in_the_Trap_(TV_series)"),
+                                new URIAction("IMDb",
+                                              "http://www.imdb.com/title/tt4741110/")
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Kim Go Eun dalam Cheese in the Trap", buttonsTemplate);
+                this.reply(replyToken, templateMessage);
+                break;
+            }
+            case "film": {
+                String imageUrl = createUri("/static/buttons/goblin.jpg");
+                String imageUrl2 = createUri("/static/buttons/cheese.jpg");
+                CarouselTemplate carouselTemplate = new CarouselTemplate(
+                        Arrays.asList(
+                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
+                                        new MessageAction("Goblin",
+                                                    "goblin")
+                                )),
+                                new CarouselColumn(imageUrl2, "hoge", "fuga", Arrays.asList(
+                                        new MessageAction("Cheese In the Trap",
+                                                    "cheese")
+                                ))
+                        ));
+                TemplateMessage templateMessage = new TemplateMessage("Film Kim Go Eun", carouselTemplate);
                 this.reply(replyToken, templateMessage);
                 break;
             }
