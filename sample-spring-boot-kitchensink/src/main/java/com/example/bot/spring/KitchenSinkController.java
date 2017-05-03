@@ -317,7 +317,7 @@ public class KitchenSinkController {
                         "Facebook",
                         Arrays.asList(
                                 new URIAction("Facebook",
-                                              "https://www.facebook.com/KGEVN/?fref=ts"),
+                                              "https://www.facebook.com/KGEVN/?fref=ts")
                         ));
                 TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
